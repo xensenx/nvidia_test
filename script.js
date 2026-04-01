@@ -7,6 +7,12 @@ const modelSelect = document.getElementById('model-select');
 const chatBox = document.getElementById('chat-box');
 const userInput = document.getElementById('user-input');
 const sendBtn = document.getElementById('send-btn');
+const statusText = document.getElementById('status-text');
+const modelStatus = document.getElementById('model-status');
+
+function setStatus(msg) {
+    if (statusText) statusText.textContent = msg;
+}
 
 // Maintain chat history context
 let messageHistory = [];
@@ -21,10 +27,16 @@ models.forEach(model => {
     modelSelect.appendChild(option);
 });
 
+// Update status bar with selected model on load
+if (modelStatus) modelStatus.textContent = modelSelect.value.split('/')[1] || modelSelect.value;
+setStatus('Ready');
+
 // Clear history if model changes
 modelSelect.addEventListener('change', () => {
     messageHistory = [];
     chatBox.innerHTML = `<div class="message system">Switched to ${modelSelect.value}. Chat history cleared.</div>`;
+    if (modelStatus) modelStatus.textContent = modelSelect.value.split('/')[1] || modelSelect.value;
+    setStatus('Model changed');
 });
 
 function appendMessage(role, text) {
@@ -47,6 +59,15 @@ async function sendMessage() {
     // Disable inputs while loading
     sendBtn.disabled = true;
     sendBtn.textContent = '...';
+    setStatus('Connecting to NIM API...');
+
+    // Typing indicator
+    const typingDiv = document.createElement('div');
+    typingDiv.classList.add('typing-indicator');
+    typingDiv.id = 'typing-indicator';
+    typingDiv.textContent = 'AI is thinking...';
+    chatBox.appendChild(typingDiv);
+    chatBox.scrollTop = chatBox.scrollHeight;
 
     const selectedModel = modelSelect.value;
 
@@ -66,12 +87,20 @@ async function sendMessage() {
         const data = await response.json();
         const aiResponse = data.choices[0].message.content;
 
+        // Remove typing indicator
+        const indicator = document.getElementById('typing-indicator');
+        if (indicator) indicator.remove();
+
         // 3. Add AI Message to UI & History
         appendMessage('ai', aiResponse);
         messageHistory.push({ role: 'assistant', content: aiResponse });
+        setStatus('Response received');
 
     } catch (error) {
+        const indicator = document.getElementById('typing-indicator');
+        if (indicator) indicator.remove();
         appendMessage('system', 'Error connecting to API. Check console.');
+        setStatus('Error — check console');
         console.error(error);
     } finally {
         sendBtn.disabled = false;

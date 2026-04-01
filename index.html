@@ -3,27 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NIM Model Tester</title>
+    <title>NVIDIA NIM Tester</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="chat-container">
+
+        <!-- Title Bar -->
         <header>
-            <h2>NVIDIA NIM Tester</h2>
-            <select id="model-select">
-                </select>
+            <h2>NVIDIA NIM Model Tester</h2>
+            <div class="titlebar-controls">
+                <div class="titlebar-btn" title="Minimize">_</div>
+                <div class="titlebar-btn" title="Restore">&#9633;</div>
+                <div class="titlebar-btn close" title="Close">&#x2715;</div>
+            </div>
         </header>
 
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <label for="model-select">Model:</label>
+            <select id="model-select"></select>
+        </div>
+
+        <!-- Chat Messages -->
         <main id="chat-box">
             <div class="message system">
                 Select a model above and say hello!
             </div>
         </main>
 
+        <!-- Input Footer -->
         <footer>
             <textarea id="user-input" placeholder="Type your message here..." rows="1"></textarea>
             <button id="send-btn">Send</button>
         </footer>
+
+        <!-- Status Bar -->
+        <div class="statusbar">
+            <div class="statusbar-panel" id="status-text">Ready</div>
+            <div class="statusbar-panel" style="flex:none; min-width:80px; text-align:center;" id="model-status">No model</div>
+        </div>
+
     </div>
 
     <script src="script.js"></script>
