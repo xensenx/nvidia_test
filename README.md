@@ -1,35 +1,50 @@
-hey...guys.
-as we know nvidia is now offering free ai apis for developer testing and prototype with no limits on tokens and daily requests except for 40 rpm. 
-anyone can get the keys by signing up on, build.nvidia.com.
+# NVIDIA NIM API Tester & Vercel Proxy 🚀
 
-what does this repo do? 
-unlike googles ai api, which allows for direct browser calls, all the other companies including nvidia restricts browser calls and returns plain error.
-the solution is you need to make a proxy file, in this case chat.js
-and you need to point that to your env variable, in this case im using vercel.
+Hey guys! As you might know, NVIDIA is now offering free AI APIs for developers to test and prototype with. They provide unlimited AI access (no token limits or daily requests) with the only limitation being a 40 Requests Per Minute (RPM) cap. 
 
-so this repo basically gives you the codes to test out the nvidia api and try out different models and experiment.
+Anyone can grab an API key by signing up at [build.nvidia.com](https://build.nvidia.com/).
 
-how to do it?
-1.simply fork this repo
-2.go to vercel. (sign up if not already)
-3.import project from github and select this one..
-4.under the environment variable section enter the key as: NVIDIA_API_KEY exactly
-5.under the value section simply paste your nvidia api key.
-6.deploy it.
+## 🤔 What does this repo do?
 
-thats it. 
-also, as of 1st of april there are total 188 models.
+If you try to build a simple frontend web app to test these models, you'll immediately run into a problem: **CORS errors**. 
 
-note: nvidia experiments with there models, so a model might work today and not work tommrow or simply disappear from the list,
-as of today all the models mentioned below are working fine, 
-but if you want to get all the recent models...
+Unlike Google's AI APIs which allow direct browser calls, NVIDIA (like most major AI providers) restricts browser calls for security reasons and will return a strict error if you hardcode your key in the frontend. To bypass this, you need a backend proxy.
 
-simply run the "nvidia_test.py" file in terminal, also enter your actual key before running it.
-this will give you all the recent working models list, you can copy that and edit it inside the script.js of this repo, then youll be able to
-use all the recent models and test them out, whenever it is your doing it. 
+This repository provides a clean, minimal UI and a secure `chat.js` proxy file designed to be hosted on Vercel. It acts as a middleman, securely pulling your API key from your environment variables so you can test out the NVIDIA API and experiment with different models right from your browser!
 
-current list of model as of 1st of april 2026.
+## ⚙️ How to Deploy & Use
 
+Getting this up and running takes about two minutes:
+
+1. **Fork this repo** to your own GitHub account.
+2. Go to [Vercel](https://vercel.com/) (Sign up for a free account if you haven't already).
+3. Click **Add New Project**, import from GitHub, and select your forked repository.
+4. Before clicking deploy, find the **Environment Variables** section.
+5. Add a new variable:
+   * **Key:** `NVIDIA_API_KEY` (must be exact)
+   * **Value:** *(Paste your actual NVIDIA API key here)*
+6. Hit **Deploy**. 
+
+That's it! Vercel will automatically host the frontend and turn the `api/chat.js` file into your secure backend proxy.
+
+## 🔄 Updating the Model List
+
+NVIDIA frequently experiments with their models. A model that works today might be removed tomorrow, or new experimental models might be added. 
+
+If you want to pull the absolute latest list of working models:
+1. Open the `nvidia_test.py` file in your terminal.
+2. Enter your API key inside the script and run it.
+3. It will output a fresh, formatted list of all currently active models.
+4. Copy those model IDs and update the array inside `script.js` in your repo to use them in the UI.
+
+## 📚 Current Model List (As of April 1, 2026)
+
+There are currently **188 models** available. Click below to expand the full list of working models included in this build:
+
+<details>
+<summary><b>Click to view all 188 available models</b></summary>
+
+```text
 Model ID                                           | Owned By
 -----------------------------------------------------------------
 01-ai/yi-large                                     | 01-ai
@@ -220,5 +235,3 @@ yentinglin/llama-3-taiwan-70b-instruct             | yentinglin
 z-ai/glm4.7                                        | z-ai
 z-ai/glm5                                          | z-ai
 zyphra/zamba2-7b-instruct                          | zyphra
-
-Total models found: 188
