@@ -1,134 +1,349 @@
+/* ============================================================
+   Windows 2000 / Classic Microsoft Style
+   ============================================================ */
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: "Tahoma", "MS Sans Serif", Arial, sans-serif;
+    font-size: 11px;
 }
 
 body {
-    background-color: #f3f4f6;
+    background-color: #008080; /* Classic Win2k teal desktop */
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 1px,
+            rgba(0,0,0,0.03) 1px,
+            rgba(0,0,0,0.03) 2px
+        );
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    cursor: default;
 }
 
+/* ── Window Shell ─────────────────────────────────────────── */
 .chat-container {
     width: 100%;
-    max-width: 800px;
-    height: 90vh;
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    max-width: 720px;
+    height: 92vh;
+    background: #d4d0c8;           /* Classic win2k window gray */
     display: flex;
     flex-direction: column;
     overflow: hidden;
+
+    /* Raised 3D border effect */
+    border: 2px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    outline: 1px solid #404040;
+    box-shadow: 2px 2px 0px #000000;
 }
 
+/* ── Title Bar ────────────────────────────────────────────── */
 header {
-    background: #111827;
-    color: white;
-    padding: 15px 20px;
+    background: linear-gradient(to right, #000080, #1084d0); /* Classic Win2k blue gradient title bar */
+    color: #ffffff;
+    padding: 4px 6px 4px 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    user-select: none;
 }
 
 header h2 {
-    font-size: 1.2rem;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 1px 1px #000033;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
+/* Fake window icon in title bar */
+header h2::before {
+    content: "🖥";
+    font-size: 14px;
+    filter: drop-shadow(1px 1px 0 #000033);
+}
+
+/* Title bar control buttons (decorative) */
+.titlebar-controls {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.titlebar-btn {
+    width: 16px;
+    height: 14px;
+    background: #d4d0c8;
+    border: 1px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: bold;
+    color: #000000;
+    cursor: pointer;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.titlebar-btn:active {
+    border-color: #808080 #ffffff #ffffff #808080;
+}
+
+.titlebar-btn.close {
+    font-size: 10px;
+}
+
+/* ── Toolbar / Menu area ──────────────────────────────────── */
+.toolbar {
+    background: #d4d0c8;
+    padding: 4px 6px;
+    border-bottom: 1px solid #808080;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.toolbar label {
+    color: #000000;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+/* ── Dropdown Select ──────────────────────────────────────── */
 select {
-    padding: 8px;
-    border-radius: 6px;
-    border: none;
-    background: #374151;
-    color: white;
+    padding: 2px 4px;
+    background: #ffffff;
+    color: #000000;
+    border: 1px solid;
+    border-color: #808080 #ffffff #ffffff #808080;
     outline: none;
     cursor: pointer;
-    max-width: 50%;
+    font-family: "Tahoma", "MS Sans Serif", Arial, sans-serif;
+    font-size: 11px;
+    max-width: 360px;
+    flex: 1;
+    appearance: auto; /* Keep native Win2k-like dropdown arrow */
+    height: 21px;
 }
 
+select:focus {
+    outline: 1px dotted #000000;
+    outline-offset: -3px;
+}
+
+/* ── Chat Message Area ────────────────────────────────────── */
 main {
     flex: 1;
-    padding: 20px;
+    padding: 6px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    background: #f9fafb;
+    gap: 6px;
+    background: #ffffff;
+    border: 1px solid;
+    border-color: #808080 #ffffff #ffffff #808080;
+    margin: 4px 6px;
 }
 
+/* Scrollbar — classic Win2k style (Webkit only) */
+main::-webkit-scrollbar {
+    width: 16px;
+}
+
+main::-webkit-scrollbar-track {
+    background: #d4d0c8;
+    border: 1px solid #808080;
+}
+
+main::-webkit-scrollbar-thumb {
+    background: #d4d0c8;
+    border: 1px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    min-height: 20px;
+}
+
+main::-webkit-scrollbar-button {
+    background: #d4d0c8;
+    border: 1px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    height: 16px;
+    display: block;
+}
+
+/* ── Messages ─────────────────────────────────────────────── */
 .message {
-    max-width: 80%;
-    padding: 12px 16px;
-    border-radius: 12px;
+    max-width: 85%;
+    padding: 5px 8px;
     line-height: 1.5;
     word-wrap: break-word;
+    font-size: 11px;
+    border: 1px solid;
 }
 
 .message.system {
     align-self: center;
-    background: #e5e7eb;
-    color: #4b5563;
-    font-size: 0.9rem;
+    background: #ffffc0;           /* Yellow system note */
+    color: #000080;
+    border-color: #808080 #ffffff #ffffff #808080;
+    font-style: italic;
+    text-align: center;
+    max-width: 70%;
 }
 
 .message.user {
     align-self: flex-end;
-    background: #2563eb;
-    color: white;
-    border-bottom-right-radius: 2px;
+    background: #d8e4f8;
+    color: #000000;
+    border-color: #808080 #ffffff #ffffff #808080;
+}
+
+.message.user::before {
+    content: "You: ";
+    font-weight: bold;
+    color: #000080;
 }
 
 .message.ai {
     align-self: flex-start;
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    color: #1f2937;
-    border-bottom-left-radius: 2px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    background: #f0f0f0;
+    color: #000000;
+    border-color: #ffffff #808080 #808080 #ffffff;
 }
 
+.message.ai::before {
+    content: "AI: ";
+    font-weight: bold;
+    color: #008000;
+}
+
+/* ── Footer / Input Area ──────────────────────────────────── */
 footer {
-    padding: 15px 20px;
-    background: #ffffff;
-    border-top: 1px solid #e5e7eb;
+    padding: 4px 6px;
+    background: #d4d0c8;
+    border-top: 1px solid #808080;
     display: flex;
-    gap: 10px;
+    gap: 4px;
+    align-items: flex-end;
+    flex-shrink: 0;
 }
 
 textarea {
     flex: 1;
-    padding: 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
+    padding: 3px 5px;
+    border: 1px solid;
+    border-color: #808080 #ffffff #ffffff #808080;
     resize: none;
     outline: none;
-    font-size: 1rem;
+    font-size: 11px;
+    font-family: "Tahoma", "MS Sans Serif", Arial, sans-serif;
+    background: #ffffff;
+    color: #000000;
+    line-height: 1.4;
+    min-height: 22px;
+    max-height: 80px;
 }
 
 textarea:focus {
-    border-color: #2563eb;
+    outline: 1px dotted #000080;
+    outline-offset: -3px;
 }
 
+/* ── Buttons ──────────────────────────────────────────────── */
 button {
-    padding: 0 20px;
-    background: #10b981;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
+    padding: 3px 14px;
+    background: #d4d0c8;
+    color: #000000;
+    border: 1px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    font-family: "Tahoma", "MS Sans Serif", Arial, sans-serif;
+    font-size: 11px;
+    font-weight: normal;
     cursor: pointer;
-    transition: background 0.2s;
+    white-space: nowrap;
+    min-width: 60px;
+    height: 23px;
+    outline: none;
+    box-shadow: 1px 1px 0 #000000;
 }
 
 button:hover {
-    background: #059669;
+    background: #e4e0d8;
+}
+
+button:active {
+    border-color: #808080 #ffffff #ffffff #808080;
+    box-shadow: none;
+    padding: 4px 13px 2px 15px;
+}
+
+button:focus {
+    outline: 1px dotted #000000;
+    outline-offset: -4px;
 }
 
 button:disabled {
-    background: #9ca3af;
+    color: #808080;
+    text-shadow: 1px 1px 0 #ffffff;
     cursor: not-allowed;
+    box-shadow: 1px 1px 0 #000000;
+}
+
+button:disabled:active {
+    border-color: #ffffff #808080 #808080 #ffffff;
+    box-shadow: 1px 1px 0 #000000;
+    padding: 3px 14px;
+}
+
+/* ── Status Bar ───────────────────────────────────────────── */
+.statusbar {
+    background: #d4d0c8;
+    border-top: 1px solid #808080;
+    padding: 2px 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.statusbar-panel {
+    border: 1px solid;
+    border-color: #808080 #ffffff #ffffff #808080;
+    padding: 1px 6px;
+    font-size: 10px;
+    color: #000000;
+    flex: 1;
+}
+
+.statusbar-panel:first-child {
+    flex: 2;
+}
+
+/* ── Typing indicator ─────────────────────────────────────── */
+.typing-indicator {
+    align-self: flex-start;
+    background: #f0f0f0;
+    color: #808080;
+    border: 1px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    padding: 5px 8px;
+    font-size: 11px;
+    font-style: italic;
+    max-width: 85%;
 }
