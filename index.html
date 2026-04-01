@@ -3,26 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NIM Model Tester</title>
+    <title>NVIDIA NIM Arena | Model Comparison</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="chat-container">
-        <header>
-            <h2>NVIDIA NIM Tester</h2>
-            <select id="model-select">
-                </select>
+    <datalist id="model-options"></datalist>
+
+    <div class="app-container">
+        <header class="top-bar">
+            <h2>NVIDIA NIM Arena</h2>
+            <span class="subtitle">Side-by-Side Model Comparison</span>
         </header>
 
-        <main id="chat-box">
-            <div class="message system">
-                Select a model above and say hello!
+        <main class="arena">
+            <div class="chat-panel">
+                <div class="panel-header">
+                    <input type="text" id="model-select-1" list="model-options" placeholder="Search model..." value="meta/llama-3.1-70b-instruct">
+                    <button class="export-btn" onclick="exportChat(1)" title="Export Chat to TXT">📥 Export</button>
+                </div>
+                <div class="chat-box" id="chat-box-1">
+                    <div class="message system">Select a model and send a prompt to begin.</div>
+                </div>
+            </div>
+
+            <div class="chat-panel">
+                <div class="panel-header">
+                    <input type="text" id="model-select-2" list="model-options" placeholder="Search model..." value="mistralai/mixtral-8x22b-instruct-v0.1">
+                    <button class="export-btn" onclick="exportChat(2)" title="Export Chat to TXT">📥 Export</button>
+                </div>
+                <div class="chat-box" id="chat-box-2">
+                    <div class="message system">Select a model and send a prompt to begin.</div>
+                </div>
             </div>
         </main>
 
-        <footer>
-            <textarea id="user-input" placeholder="Type your message here..." rows="1"></textarea>
-            <button id="send-btn">Send</button>
+        <footer class="input-area">
+            <textarea id="user-input" placeholder="Type your prompt here to test both models..." rows="2"></textarea>
+            <button id="send-btn">Send to Both</button>
         </footer>
     </div>
 
